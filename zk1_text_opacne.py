@@ -21,19 +21,20 @@ def velke_pismeno(li):
     for a in li:
         i = list(a)
         if i[0].isupper() == True:
-            
+            i[0] = i[0].lower()
+            i[-1] = i[-1].upper()
             a = ''.join(i)
         novy_li.append(a)
     return(novy_li)
 
 
-
-
 text = input("Vložte text:")
 print(text)
+vp = input("Přejete se upravit velikost písmen pro čtení zprava doleva? Zadejte 1 pro volbu ANO.")
 text_list = text.split()
-print(text_list)
-text_list_opacne = otoc_seznam(text_list)
-print(text_list_opacne)
-text_list_opacne_uprava = konec_vety_nebo_carka(text_list_opacne)
-print(text_list_opacne_uprava)
+text_f = otoc_seznam(text_list)
+text_f = konec_vety_nebo_carka(text_f)
+if vp == "1":
+    text_f = velke_pismeno(text_f)
+text_f_spojeny = ' '.join(text_f)
+print(text_f_spojeny)
