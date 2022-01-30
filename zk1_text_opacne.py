@@ -1,6 +1,3 @@
-from pickle import TRUE
-
-
 def otoc_seznam(seznam):
     novy_seznam = seznam[::-1]
     return novy_seznam
@@ -26,7 +23,6 @@ def velke_pismeno(li):
             a = ''.join(i)
         novy_li.append(a)
     return(novy_li)
-
 
 text = input("Vložte text:")
 print(text)
