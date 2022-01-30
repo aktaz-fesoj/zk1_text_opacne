@@ -24,9 +24,18 @@ def velke_pismeno(li):
         novy_li.append(a)
     return(novy_li)
 
-text = input("Vložte text:")
+def nacti_data(adresa):
+    with open(adresa, encoding = "utf-8") as vstupni_text:
+        text_read = vstupni_text.read()
+    return(text_read)
+
+
+try:
+    text = nacti_data("text.txt")
+except:
+    text = input("Vložte text:")
 print(text)
-vp = input("Přejete se upravit velikost písmen pro čtení zprava doleva? Zadejte 1 pro volbu ANO.")
+vp = input("Přejete si upravit velikost písmen pro čtení zprava doleva? Zadejte 1 pro volbu ANO.")
 text_list = text.split()
 text_f = otoc_seznam(text_list)
 text_f = konec_vety_nebo_carka(text_f)
