@@ -9,7 +9,8 @@ def otoc_seznam(seznam):
     return novy_seznam
 
 def konec_vety_nebo_carka(li):
-    """Funkce upraví položky v seznamu. Pokud se na konci řetězce nachází alespoň jeden ze znaků .,;?! bude tento znak(y) převeden na druhou stranu textového řetězce (pokud se zde nachází znaků více, budou převedeny v opačném pořadí).
+    """Funkce upraví položky v seznamu. Pokud se na konci řetězce nachází alespoň jeden ze znaků .,;:?! bude tento znak(y) \
+    převeden na druhou stranu textového řetězce (pokud se zde nachází znaků více, budou převedeny v opačném pořadí).
 
         Parameters:
                     li(list): Vstupní seznam, který bude upraven
@@ -20,9 +21,9 @@ def konec_vety_nebo_carka(li):
         i = list(a)                 #Rozdělení slova na znaky
         znovu = True
         while znovu == True:        #Následující část se opakuje dokud na konci slova není žádný "nevhodný" znak
-            if i[-1] == "." or i[-1] == "!" or i[-1] == "?" or i[-1] == "," or i[-1] == ";":
+            if i[-1] == "." or i[-1] == "!" or i[-1] == "?" or i[-1] == "," or i[-1] == ";" or i[-1] == ":":
                 i.insert(0, i[-1])  #Vložení daného znaku na první pozici řetězce (=před řetězec)
-                del i[-1]           #Pdstranění znaku z konce řetězce
+                del i[-1]           #Odstranění znaku z konce řetězce
                 a = ''.join(i)      #Opětovné spojení znaků do slova
             else:
                 znovu = False
@@ -31,7 +32,8 @@ def konec_vety_nebo_carka(li):
     return novy_li
 
 def velke_pismeno(li):
-    """Funkce upraví položky v seznamu. Začíná-li textový řetězec velkým písmenem, bude toto písmeno zmenšeno a naopak zvětšen bude poslední znak řetězce.
+    """Funkce upraví položky v seznamu. Začíná-li textový řetězec velkým písmenem, bude toto písmeno zmenšeno a naopak zvětšen \
+    bude poslední znak řetězce.
 
         Parameters:
                     li(list): Vstupní seznam, ve kterém budou upravena počáteční velká písmena
@@ -74,9 +76,9 @@ try:
     text = nacti_data("text.txt")
 except:
     text = input("Soubor text.txt nebyl nalezen ve stejné složce, ze které spouštíte tento program, nebo se ho nepodařilo úspěšně spustit. Můžete vložit text ručně:")
-print(text)
+print(f"Bude upraven (po slovech otočen) následující text: {text}")
 vel_pismena_ano = input("Přejete si upravit velikost písmen pro čtení zprava doleva? Zadejte 1 pro volbu ANO.")
-text_list = text.split()
+text_list = text.split()    #Rozdělí text dle mezer (může jich být víc za sebou, může být tab -> přesto rozdělí a mezery vynechá)
 text_f = otoc_seznam(text_list)
 text_f = konec_vety_nebo_carka(text_f)
 if vel_pismena_ano == "1":
