@@ -1,90 +1,100 @@
-def otoc_seznam(seznam):
-    """Funkce obrátí pořádí prvků seznamu.
+def list_reverse(list1):
+    """The function takes in a list and returns the same list in reversed order.
 
         Parameters:
-                    seznam(list): Vstupní seznam, který bude otočen
-                    novy_seznam(list): Výstupní seznam s opačným pořadím prvků oproti seznamu vstupnímu
+                    list1(list1): The input list that has to be reversed
+        Returns:
+                    new_list(list): Output list with elements in reversed order in comparison with the input list.
     """
-    novy_seznam = seznam[::-1]      # Step parameter -1 docílí "braní" prvků v opačném pořadí
-    return novy_seznam
+    # Elements are going to be "taken" in reverse order due to step parameter -1
+    new_list = list1[::-1]
+    return new_list
 
-def konec_vety_nebo_carka(li):
-    """Funkce upraví položky v seznamu. Pokud se na konci řetězce nachází alespoň jeden ze znaků .,;:?! bude tento znak(y) \
-    převeden na druhou stranu textového řetězce (pokud se zde nachází znaků více, budou převedeny v opačném pořadí).
+def interpunction(li):
+    """The function modifies elements in a list. If there is at least one of symbols .,;:?! at end of a string, this symbol is going to be moved to the opposite \
+    side of the string (if more than one symbol occures, symbols are gonna be moved in reversed order)
 
         Parameters:
-                    li(list): Vstupní seznam, který bude upraven
-                    novy_li(list): Výstupní upravený seznam
+                    li(list): Input list that is going to be modified
+        Returns:
+                    new_li(list): Modified list
     """
-    novy_li = []
+    new_li = []
     for a in li:
-        i = list(a)                 #Rozdělení slova na znaky
-        znovu = True
-        while znovu == True:        #Následující část se opakuje dokud na konci slova není žádný "nevhodný" znak
+        #Spliting the word to list of single characters
+        i = list(a)
+        again = True
+        #Following section iterates until any "invalid" (as mentioned above) character remains at the end of a string 
+        while again == True:
             if i[-1] == "." or i[-1] == "!" or i[-1] == "?" or i[-1] == "," or i[-1] == ";" or i[-1] == ":":
-                i.insert(0, i[-1])  #Vložení daného znaku na první pozici řetězce (=před řetězec)
-                del i[-1]           #Odstranění znaku z konce řetězce
-                a = ''.join(i)      #Opětovné spojení znaků do slova
+                #Putting the character to the first position in a string (=in front of the string)
+                i.insert(0, i[-1])
+                #Deleting the invalid character from the end of the string
+                del i[-1]
+                #Joining the characters into a single string again
+                a = ''.join(i)
             else:
-                znovu = False
+                again = False
 
-        novy_li.append(a)
-    return novy_li
+        new_li.append(a)
+    return new_li
 
-def velke_pismeno(li):
-    """Funkce upraví položky v seznamu. Začíná-li textový řetězec velkým písmenem, bude toto písmeno zmenšeno a naopak zvětšen \
-    bude poslední znak řetězce.
+def capital_letter(li):
+    """The function modifies elements in a list. When on position 0 in a string capital letter is found, \
+        the function changes it to small letter and a character on last position in the string is changed to uppercase.
 
         Parameters:
-                    li(list): Vstupní seznam, ve kterém budou upravena počáteční velká písmena
-                    novy_li(list): Výstupní upravený seznam
+                    li(list): Input list that is going to be modified
+        Returns:
+                    new_li(list): Output list with modified capital letters
     """
-    novy_li = []
+    new_li = []
     for a in li:
         i = list(a)
         if i[0].isupper() == True:
             i[0] = i[0].lower()
             i[-1] = i[-1].upper()
             a = ''.join(i)
-        novy_li.append(a)
-    return novy_li
+        new_li.append(a)
+    return new_li
 
-def nacti_data(adresa):
-    """Funkce načte textový řetězec ze souboru a uloží ho do proměnné.
+def load_data(adress):
+    """Function loads text string from a file and saves it as a variable.
 
         Parameters:
-                    adresa(str): Absolutní či relativní cesta k zdrojovému textovému souboru
-                    text_read(str): Textový řetězec obsahující text ze vstupního textového souboru
+                    adress(str): Absolute or relative path of a text file that has to be loaded
+        Returns:
+                    text_read(str): String containing text from input text file
     """
-    with open(adresa, encoding = "utf-8") as vstupni_text:
-        text_read = vstupni_text.read()
+    with open(adress, encoding = "utf-8") as input_text:
+        text_read = input_text.read()
     return(text_read)
 
-def zapis_text(adresa, text_k_zapsani):
-    """Funkce uloží text do textového souboru.
+def write_text(adress, text_to_be_written):
+    """Function saves text to text file
 
         Parameters:
-                    adresa(str): Absolutní či relativní cesta k souboru, do kterého má být text zapsán
-                    text_k_zapsani(str): Text, který bude do výstupního souboru zapsán
+                    adress(str): Absolute or relative path of a file, where the text should be written
+                    text_to_be_written(str): String containing text that is going to be written in the file
     """
-    with open(adresa, "w", encoding = "utf-8") as vystupni_text:
-        vystupni_text.write(text_k_zapsani)
-    return(f"Úspěšně uložen soubor {adresa} s textem s obráceným pořadím slov.")
-
+    with open(adress, "w", encoding = "utf-8") as output_text:
+        output_text.write(text_to_be_written)
+    return(f"File {adress} containing text with reverse order of words was successfully saved.")
 
 try:
-    text = nacti_data("text.txt")
+    text = load_data("text.txt")
 except:
-    text = input("Soubor text.txt nebyl nalezen ve stejné složce, ze které spouštíte tento program, nebo se ho nepodařilo úspěšně spustit. Můžete vložit text ručně:")
-print(f"Bude upraven (po slovech otočen) následující text: {text}")
-vel_pismena_ano = input("Přejete si upravit velikost písmen pro čtení zprava doleva? Zadejte 1 pro volbu ANO.")
-text_list = text.split()    #Rozdělí text dle mezer (může jich být víc za sebou, může být tab -> přesto rozdělí a mezery vynechá)
-text_f = otoc_seznam(text_list)
-text_f = konec_vety_nebo_carka(text_f)
-if vel_pismena_ano == "1":
-    text_f = velke_pismeno(text_f)
-text_f_spojeny = ' '.join(text_f)
-print(text_f_spojeny)
-zapis_ano = input("Přejete si zapsat upravený výsledný text do nového textového souboru? Zadejte 1 pro volbu ANO.")
-if zapis_ano == "1":
-    zapis_text("obraceno.txt", text_f_spojeny)
+    text = input("File text.txt was not found in the same folder from which you are running this program, or it fail to load the file. You can enter text manually:")
+print(f"Following text is going to be modified (words are going to be written in reverse order): {text}")
+capitals_yes = input("Do you wish to change capital letters in order to make the text readable in right-left direction? Enter 1 for YES.")
+#Splits the text by whitespaces (including more whitespaces, including tabs)
+text_list = text.split()
+text_f = list_reverse(text_list)
+text_f = interpunction(text_f)
+if capitals_yes == "1":
+    text_f = capital_letter(text_f)
+text_f_joined = ' '.join(text_f)
+print(text_f_joined)
+write_yes = input("Do you wish to save generated reversed text to new text file? Enter 1 for YES.")
+if write_yes == "1":
+    write_text("reversed.txt", text_f_joined)
